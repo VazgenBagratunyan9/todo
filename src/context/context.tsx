@@ -8,9 +8,7 @@ export const ContextProvider:FC = ({children}) => {
         <Context.Provider value={{}}>
             <ToDoProvider>
                 {children}
-
             </ToDoProvider>
         </Context.Provider>
     )
-
 }

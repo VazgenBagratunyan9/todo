@@ -1,43 +1,41 @@
-import React, {FC, useContext, useState, useEffect} from "react";
-
+import React, {ChangeEvent, FC, useState} from "react";
 import {TodoItem} from "../todo_item";
-import styled from "styled-components";
-
-import {Button,Input,List} from "../styled-components";
 import {useToDoContext} from "../../context";
+import {Button} from '../button'
+import {FlexWrapper} from "../flexWrapper/style";
+
 
 export const Todo:FC = ()=>{
     const [value,setValue] = useState<string>('')
-    const [id,setID] = useState(1)
-    const {todoData,changeTodo} = useToDoContext()
+    const {todoData,addTodo} = useToDoContext()
 
-
-    const Block = styled.div`
-      display: flex;
-    `
-
-    const addTodo = ()=>{
+    const add = ()=>{
         if(!!value){
-            setID((prev)=>++prev)
-            changeTodo({id:id,title:value})
+            addTodo(value)
+            setValue('')
         }
     }
-
-    console.log(todoData)
+    const onChangeInput =(e:ChangeEvent<HTMLInputElement>)=>{
+        setValue(e.target.value)
+    }
 
     return (
-        <div className="todo_List">
-            <Block>
-                <Input
-                    onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                        setValue(e.target.value)
-                    }
+        <div>
+            <FlexWrapper justify="center">
+                <input
                     value={value}
+                    onChange={onChangeInput}
                 />
-                <Button onClick={addTodo}>Add</Button>
-            </Block>
+                <Button
+                    bgColor="#025020"
+                    onClick={add}
+                >
+                    Add
+                </Button>
 
-            <List>
+            </FlexWrapper>
+
+            <ul>
                 {
                     todoData.map(({id,title})=>{
                         return <TodoItem
@@ -47,7 +45,8 @@ export const Todo:FC = ()=>{
                         />
                     })
                 }
-            </List>
+            </ul>
+
         </div>
     )
 }
