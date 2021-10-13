@@ -3,9 +3,7 @@ import {useToDoContext} from "../../context";
 
 import {ChangeEvent, FC, useState} from "react";
 
-import {ItemTitle} from "./itemTitle";
-import {FlexWrapper} from "../style";
-
+import {STYLED} from "../../theme/components";
 
 
 export const TodoItem:FC<itodo>= ({id, title,children} ) => {
@@ -30,18 +28,18 @@ export const TodoItem:FC<itodo>= ({id, title,children} ) => {
     }
 
     return (
-        <FlexWrapper gap="5">
-            <ItemTitle flex={'80%'}>{title}</ItemTitle>
-            {!edit && <ItemTitle cursor="pointer" onClick={changeEdit}>Edit</ItemTitle>}
+        <STYLED.FlexWrapper gap="5">
+            <STYLED.ItemTitle flex={'80%'}>{title}</STYLED.ItemTitle>
+            {!edit && <STYLED.ItemTitle cursor="pointer" onClick={changeEdit}>Edit</STYLED.ItemTitle>}
             {
                 edit &&
-                <FlexWrapper align="flex-start" gap='5'>
+                <STYLED.FlexWrapper align="flex-start" gap='5'>
                     <input value={value} onChange={changeInput}/>
-                    <ItemTitle cursor="pointer" onClick={handleClick}>Edit</ItemTitle>
-                </FlexWrapper>
+                    <STYLED.ItemTitle cursor="pointer" onClick={handleClick}>Edit</STYLED.ItemTitle>
+                </STYLED.FlexWrapper>
             }
-            <ItemTitle cursor="pointer" onClick={() => removeTodo(id)}>Remove</ItemTitle>
-        </FlexWrapper>
+            <STYLED.ItemTitle cursor="pointer" onClick={() => removeTodo(id)}>Remove</STYLED.ItemTitle>
+        </STYLED.FlexWrapper>
     )
 }
 

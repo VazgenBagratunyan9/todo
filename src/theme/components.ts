@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {iButtonStyle, iFlexWrapperStyle} from "../interfaces/todoInterfaces";
+import {iButtonStyle, iFlexWrapperStyle, iItemTitle} from "../interfaces/todoInterfaces";
 
 export const STYLED = {
     FlexWrapper: styled.div<iFlexWrapperStyle>`
@@ -27,5 +27,13 @@ export const STYLED = {
       flex-direction: column;
       justify-content: space-between;
       gap: 10px;
+    `,
+    ItemTitle: styled.li<iItemTitle>`
+      flex: ${({flex}) => flex};
+      background: #7eb9dc;
+      margin-bottom: 5px;
+      padding: 5px 10px;
+      width: ${({width}) => width};
+      cursor: ${props => props.cursor};
     `
 }

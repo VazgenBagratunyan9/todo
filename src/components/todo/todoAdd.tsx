@@ -1,10 +1,10 @@
 import React, {ChangeEvent, FC, useState} from "react";
 
 
-import {useToDoContext} from "../../context";
+import {useAuthContext, useToDoContext} from "../../context";
 
 
-import {FlexWrapper,Button} from "../style";
+import {STYLED} from '../../theme/components'
 
 
 
@@ -12,7 +12,8 @@ import {FlexWrapper,Button} from "../style";
 export const TodoAdd: FC = () => {
 
     const [value, setValue] = useState<string>('')
-    const {addTodo, logOut, user} = useToDoContext()
+    const {addTodo} = useToDoContext()
+    const {logOut, user} = useAuthContext()
 
     const add = () => {
         if (!!value.trim()) {
@@ -26,19 +27,19 @@ export const TodoAdd: FC = () => {
     }
 
     return (
-        <FlexWrapper justify={"space-between"} gap='20'>
-            <FlexWrapper gap='20' align='center' background={"#7eb9dc"} padding='10px'>
+        <STYLED.FlexWrapper justify={"space-between"} gap='20'>
+            <STYLED.FlexWrapper gap='20' align='center' background={"#7eb9dc"} padding='10px'>
                 <input
                     value={value}
                     onChange={onChangeInput}
                 />
-                <Button onClick={add}> Add </Button>
-            </FlexWrapper>
-            <FlexWrapper gap={'20'} align='center' background={"#7eb9dc"} padding='10px'>
+                <STYLED.Button onClick={add}> Add </STYLED.Button>
+            </STYLED.FlexWrapper>
+            <STYLED.FlexWrapper gap={'20'} align='center' background={"#7eb9dc"} padding='10px'>
                 <span>{user}</span>
-                <Button onClick={() => logOut()}>Log Out</Button>
-            </FlexWrapper>
-        </FlexWrapper>
+                <STYLED.Button onClick={() => logOut()}>Log Out</STYLED.Button>
+            </STYLED.FlexWrapper>
+        </STYLED.FlexWrapper>
 
     )
 }

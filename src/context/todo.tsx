@@ -5,12 +5,9 @@ import {iContext, itodo} from "../interfaces/todoInterfaces";
 
 const defaultState: iContext = {
     todoData: [],
-    user:'',
     changeTodo: () => {},
     removeTodo:() => {},
     addTodo:() => {},
-    login:() => {},
-    logOut:() => {}
 };
 
 
@@ -18,16 +15,12 @@ export const ToDoContext = createContext<iContext>(defaultState)
 
 
 export const ToDoProvider: FC = ({children}) => {
-    const [user,setUser] = useState('')
     const [todoData, setTodoData] = useState([{id: '1', title: 'aaaa'}])
 
     useEffect(()=>{
         const user = localStorage.getItem('user')
         const data = localStorage.getItem('data')
 
-        if(user){
-            setUser(user)
-        }
         if(data){
             setTodoData(JSON.parse(data))
         }
@@ -54,27 +47,12 @@ export const ToDoProvider: FC = ({children}) => {
         setTodoData(data)
     }
 
-    const login = (userName:string)=>{
-        localStorage.setItem('user',userName)
-        setUser(userName)
-    }
-
-    const logOut = () => {
-        localStorage.removeItem('user')
-        localStorage.removeItem('data')
-        setUser('')
-        setTodoData([])
-    }
-
     return (
         <ToDoContext.Provider value={{
             todoData,
-            user,
             changeTodo,
             removeTodo,
             addTodo,
-            login,
-            logOut
         }}>
             {
                 children
