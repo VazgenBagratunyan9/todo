@@ -1,20 +1,31 @@
-import React, {FC, useState} from 'react';
-import styled,{ThemeProvider} from "styled-components";
-import {GlobalStyle, todoTheme} from "./theme";
+import React, {FC} from 'react';
+//style
+import {ThemeProvider} from "styled-components";
+import {GlobalStyle, theme} from "./theme";
+
 //components
-import {Todo} from "./components/todo_list";
+import {Todo} from "./components/todo";
+import {Login} from "./components/login";
 
-//types
-
+//context
 import {ContextProvider} from "./context";
+import { STYLED } from './theme/components';
+
+
 
 
 const App: FC = () => {
     return (
         <ContextProvider>
-            <ThemeProvider theme={todoTheme}>
+            <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <Todo/>
+                <STYLED.FlexWrapper
+                    width="100vw"
+                    height="100vh"
+                >
+                    <Login />
+                    <Todo />
+                </STYLED.FlexWrapper>
             </ThemeProvider>
         </ContextProvider>
     )

@@ -1,13 +1,16 @@
-import {createContext, FC, useState} from 'react'
+import {createContext, FC, useEffect, useState} from 'react'
 import uniqid from "uniqid";
 
-import {iContext, itodo} from "../interfaces/TodoInterfaces";
+import {iContext, itodo} from "../interfaces/todoInterfaces";
 
 const defaultState: iContext = {
     todoData: [],
+    user:'',
     changeTodo: () => {},
     removeTodo:() => {},
-    addTodo:() => {}
+    addTodo:() => {},
+    login:() => {},
+    logOut:() => {}
 };
 
 
@@ -15,8 +18,25 @@ export const ToDoContext = createContext<iContext>(defaultState)
 
 
 export const ToDoProvider: FC = ({children}) => {
-
+    const [user,setUser] = useState('')
     const [todoData, setTodoData] = useState([{id: '1', title: 'aaaa'}])
+
+    useEffect(()=>{
+        const user = localStorage.getItem('user')
+        const data = localStorage.getItem('data')
+
+        if(user){
+            setUser(user)
+        }
+        if(data){
+            setTodoData(JSON.parse(data))
+        }
+
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem('data',JSON.stringify(todoData))
+    },[todoData])
 
     const changeTodo = (id:string,value:string)=>{
         const copyTodoData = [...todoData]
@@ -34,12 +54,27 @@ export const ToDoProvider: FC = ({children}) => {
         setTodoData(data)
     }
 
+    const login = (userName:string)=>{
+        localStorage.setItem('user',userName)
+        setUser(userName)
+    }
+
+    const logOut = () => {
+        localStorage.removeItem('user')
+        localStorage.removeItem('data')
+        setUser('')
+        setTodoData([])
+    }
+
     return (
         <ToDoContext.Provider value={{
             todoData,
+            user,
             changeTodo,
             removeTodo,
-            addTodo
+            addTodo,
+            login,
+            logOut
         }}>
             {
                 children

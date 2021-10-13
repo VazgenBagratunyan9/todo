@@ -1,5 +1,5 @@
 import {createContext, FC} from "react";
-import {ToDoProvider} from "./Todo";
+import {ToDoProvider} from "./todo";
 
 const Context = createContext({})
 
